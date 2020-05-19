@@ -1,46 +1,42 @@
 import React from "react"
 import { graphql } from "gatsby"
+
+import Layout from "../components/layout"
 import ProductDetail from "../components/ProductDetail"
 
-const ProductPageTemplate = () => {
-    return (
-        <div>
-            <ProductDetail />
-        </div>
-    )
+const ProductPageTemplate = ({ data }) => {
+  return (
+    <Layout>
+      <ProductDetail product={data.shopifyProduct}/>
+    </Layout>
+  )
 }
 
-const PRODUCT_QUERY = graphql`
-  query ProductQuery {
-    shopifyProduct {
-      edges {
-        node {
-          id
-          title
-          images {
-            localFile {
-              childImageSharp {
-                fixed(width: 200) {
-                  ...GatsbyImageSharpFixed_withWebp_tracedSVG
-                }
-              }
+export const query = graphql`
+  query ProductQuery($handle: String!) {
+    shopifyProduct(handle: {eq: $handle}) {
+      id
+      title
+      images {
+        localFile {
+          childImageSharp {
+            fixed(width: 200) {
+              ...GatsbyImageSharpFixed_withWebp_tracedSVG
             }
           }
-          publishedAt(formatString: "YYYY")
-          description
-          descriptionHtml
-          variants {
-            sku
-            id
-            title
-            price
-          }
         }
+      }
+      publishedAt(formatString: "YYYY")
+      description
+      descriptionHtml
+      variants {
+        sku
+        id
+        title
+        price
       }
     }
   }
 `
-
-export const query = PRODUCT_QUERY 
 
 export default ProductPageTemplate
