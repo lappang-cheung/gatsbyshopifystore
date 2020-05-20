@@ -12020,7 +12020,7 @@ shell-quote@^1.6.1:
   resolved "https://registry.yarnpkg.com/shell-quote/-/shell-quote-1.7.2.tgz#67a7d02c76c9da24f99d20808fcaded0e0e04be2"
   integrity sha512-mRz/m/JVscCrkMyPqHc/bczi3OQHkLTqXHEFu0zDhK/qfv3UcOA4SVmRCLmos4bhjr9ekVQubj/R7waKapmiQg==
 
-shopify-buy@2.10.0, shopify-buy@^2.2.2:
+shopify-buy@2.10.0, shopify-buy@^2.10.0, shopify-buy@^2.2.2:
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/shopify-buy/-/shopify-buy-2.10.0.tgz#ed5e434e6f9b11de6626f5dfe8dc6a01a6f6a607"
   integrity sha512-ZusCW1qxnlXrEqeeo3OoK7DbkAhppSrzhHHtDbOMpZXj91WEPZr8vQG9+IbeQXq/j+H3/wpzOJ+kF3WGrsDB7w==
