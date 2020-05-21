@@ -8,31 +8,50 @@ const ProductDetail = ({ product }) => {
     const [selectedVariant, setVariant] = useState(product.variants[0])
     const { client } = useContext(StoreContext)
 
-    console.log(client)
+    const addToCart = async (variantId) => {
+        const newCheckout = await client.checkout.create()
+        const lineItems = [
+          {
+            variantId: variantId.replace("Shopify__ProductVariant__", ""),
+            quantity: 1,
+          },
+        ]
+        const addItems = await client.checkout.addLineItems(
+            newCheckout.id, 
+            lineItems
+        )
+        window.open(addItems.webUrl, '_blank')
+    }
 
     return (
-      <div>
-        <h1>{product.title}</h1>
-        <Img fixed={product.images[0].localFile.childImageSharp.fixed} />
-        <p>{product.description}</p>
-        <p>${selectedVariant.price}</p>
-        <select
+      <div className="md:flex">
+        <div>
+          <Img fixed={product.images[0].localFile.childImageSharp.fixed} />
+        </div>
+        <div className="md:ml-6">
+          <h1>{product.title}</h1>
+
+          <p>{product.description}</p>
+          <p>${selectedVariant.price}</p>
+          <select
             onChange={e => {
-                const selected = product.variants.filter(
-                  variant => variant.sku === e.target.value
-                )
-                setVariant(selected[0])
+              const selected = product.variants.filter(
+                variant => variant.sku === e.target.value
+              )
+              setVariant(selected[0])
             }}
-          value={selectedVariant.sku}
-        >
-          {product.variants.map(variant => {
-            return (
-              <option key={variant.id} value={variant.sku}>
-                {variant.title}
-              </option>
-            )
-          })}
-        </select>
+            value={selectedVariant.sku}
+          >
+            {product.variants.map(variant => {
+              return (
+                <option key={variant.id} value={variant.sku}>
+                  {variant.title}
+                </option>
+              )
+            })}
+          </select>
+          <button onClick={() => addToCart(selectedVariant.id)}>Buy Now</button>
+        </div>
       </div>
     )
 }
